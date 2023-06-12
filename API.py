@@ -6,10 +6,6 @@ class API():
     def __init__(self, downloader):
         self.downloader = downloader
 
-    def get(self, query):
-        pass
-
-
     def execute(self):
         time = datetime.datetime.now
         qy = self.downloader.query.get_next()
@@ -24,22 +20,22 @@ class API():
         self.increment_count()
         self.downloader.state.set_last_call(time)
         
-
-    def extest(self):
-        for i in range(20):
-            qy = self.downloader.query.get_next()
-            print(qy['num'])
-            index = (int(qy['num']))
-            self.downloader.query.mark_done(index)
         
-    def increment_count()(self):
+    def increment_count(self):
         count = self.downloader.state.get_count()
         print(count)
-        last = self.downloader.state.get_last_call()
         
-        if last.date < datetime.datetime.date:
-            self.downloader.state.set_count(1)
+        last = self.downloader.state.get_last_call()
+        today = datetime.date.today()
+        if last:
+            if last < today:
+                print("reset count")
+                self.downloader.state.set_count(1)
+            else:
+                print("increment count")
+                count += 1
+                self.downloader.state.set_count(count)
         else:
-            self.downloader.state(set_count(count + 1))
-
+            print("nothing")
+            return
             

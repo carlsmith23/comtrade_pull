@@ -93,8 +93,6 @@ class Menu():
             while test_run:
                 self.info()
                 print("TEST QUERY MENU")
-                print("CALLS TODAY: {}" .format(downloader.state.get_calls_today()))
-                print("")
                 print("(S)end test query")
                 print("(B)ack")
                 print("")

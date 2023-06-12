@@ -1,12 +1,15 @@
 import json
+import datetime
 
 class State:
     def __init__(self):
-        self.read()
-
-        ### Filenames ###
+        # ### Filenames ###
         self.filename = "state.json"
         self.qlfilename = "query_list"
+
+
+
+        
 
         ### API Info ###
         self.apikey = None
@@ -19,7 +22,8 @@ class State:
         self.last_test = None
 
         self.query_list_status = False
-
+        self.write()
+        self.read()
         
 
 
@@ -80,13 +84,15 @@ class State:
         self.read()
         return self.test_query_status
     
-    def set_last_call(self, call):
+    def set_last_call(self):
         self.read()
-        self.last_call = call
+        now = datetime.datetime.today()
+        self.last_call = now.strftime("%d%m%Y")
         self.write()
 
     def get_last_call(self):
         self.read()
+        self.last_call = datetime.datetime.strptime(self.last_call, "%d%m%Y").date()
         return self.last_call
 
 
@@ -122,7 +128,7 @@ class State:
 
     def set_count(self, count):
         self.read()
-        self.qlfilename = count
+        self.api_count = count
         self.write()
 
     def get_count(self):
