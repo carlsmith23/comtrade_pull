@@ -9,4 +9,4 @@
 
 4. Run main.py, add your API key, import your query file and you should be ready to execute order 66, er, I mean your query.
 
-5.Each query result is added to the main results dataframe, which is stored as a file. Each individual result is written to its own csv file (named by timestamp) for redundancy
+5. Each query result is added to the main results dataframe, which is stored as a file. Each individual result is written to its own csv file (named by timestamp) for redundancy
