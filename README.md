@@ -1,5 +1,5 @@
-#comtrade_pull
-##comtrade_pull is a small script to automate querying and pulling data from UN Comtrade via the python API.
+# comtrade_pull
+## comtrade_pull is a small script to automate querying and pulling data from UN Comtrade via the python API.
 
 1. All config, query, and result data are stored as files so processes can always be resumed. I don't know if this is implemented in the best way, but it does work and I have not lost any data yet.
 
