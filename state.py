@@ -7,23 +7,21 @@ class State:
         self.filename = "state.json"
         self.qlfilename = "query_list"
 
-
-
-        
+        self.read()
 
         ### API Info ###
-        self.apikey = None
-        self.daily_limit = 250
+        # self.apikey = None
+        # self.daily_limit = 250
 
-        self.api_count = 0
-        self.last_call = None
+        # self.api_count = 0
+        # self.last_call = None
 
-        self.test_query_status = False
-        self.last_test = None
+        # self.test_query_status = False
+        # self.last_test = None
 
-        self.query_list_status = False
+        # self.query_list_status = False
         self.write()
-        self.read()
+        
         
 
 

@@ -2,7 +2,7 @@ import datetime
 import comtradeapicall
 import requests
 
-class API():
+class API_Caller():
     def __init__(self, downloader):
         self.downloader = downloader
 

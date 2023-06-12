@@ -1,3 +1,6 @@
+#Contains all the logic for handling the query list. As default, this is an xlsx file in the main folder called query.xlsx. It basically just contains one query per row, one parameter per column.
+
+
 import json
 import pandas as pd 
 import pyarrow.feather as feather
@@ -15,7 +18,7 @@ class Query:
             #qy = json.load(json_file)
         #return qy
     
-
+    
     def read_excel(self, filename):
         query_list = pd.read_excel(filename, sheet_name=0)
         return(query_list)
@@ -23,7 +26,7 @@ class Query:
     #def read_csv(self, filename):
         #pd.read_csv(filename)
 
-
+    #read the query list in the given format and save it as a pyarrow feather file for quick, but permanent access
     def importq(self):
         ql = self.read_excel(self.filename)
         print(ql)
@@ -31,7 +34,7 @@ class Query:
             feather.write_feather(ql, f)
             f.close()
     
-
+    #Looks at the query list, finds the first row with 0 in 'done' column and returns the query as a dict
     def get_next(self):
         with open(self.ql_filename, 'rb') as f:
             ql = feather.read_feather(f)
@@ -45,6 +48,7 @@ class Query:
             query = query[next_row]
             return query
         
+    #Changes the 'done' column for a given row from 0 to 1    
     def mark_done(self, index):
         with open(self.ql_filename, 'rb') as f:
             ql = feather.read_feather(f)

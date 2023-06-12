@@ -25,4 +25,4 @@ time = datetime.datetime.now
 downloader.state.set_last_call()
 
 for i in range(20):
-  downloader.API.increment_count()
+  downloader.API_caller.increment_count()
