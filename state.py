@@ -2,16 +2,25 @@ import json
 
 class State:
     def __init__(self):
+        self.read()
+
+        ### Filenames ###
         self.filename = "state.json"
         self.qlfilename = "query_list"
+
+        ### API Info ###
         self.apikey = None
         self.daily_limit = 250
+
         self.api_count = 0
         self.last_call = None
+
         self.test_query_status = False
         self.last_test = None
+
         self.query_list_status = False
 
+        
 
 
     def write(self):

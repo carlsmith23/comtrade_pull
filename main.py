@@ -1,11 +1,11 @@
 from downloader import Downloader
-
+import datetime
 # def main():
 downloader = Downloader()
 #   downloader.run()
 
 
 # if __name__ == "__main__":
-#  main()
+#   main()
 
-downloader.API.execute()
+print(datetime.datetime.now())

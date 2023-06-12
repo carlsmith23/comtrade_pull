@@ -24,8 +24,8 @@ class Query:
         #pd.read_csv(filename)
 
 
-    def importq(self, filename):
-        ql = self.read_excel(filename)
+    def importq(self):
+        ql = self.read_excel(self.filename)
         print(ql)
         with open(self.ql_filename, 'wb') as f:
             feather.write_feather(ql, f)
@@ -43,8 +43,6 @@ class Query:
 
             query = query_df.to_dict(orient='index')
             query = query[next_row]
-
-            print(query)
             return query
         
     def mark_done(self, index):

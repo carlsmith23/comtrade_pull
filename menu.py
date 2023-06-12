@@ -5,7 +5,7 @@ class Menu():
 
     def info(self):
         apikey = self.downloader.state.get_apikey()
-        count = self.downloader.state.count()
+        count = self.downloader.state.get_count()
         test = self.downloader.state.get_test_query_status()
         lasttest = self.downloader.state.get_last_test()
         qlist = self.downloader.state.get_query_list_status()
@@ -39,7 +39,7 @@ class Menu():
             elif prompt == "T" or prompt == "t":
                 self.test()
             elif prompt == "R" or prompt == "r":
-                self.read()
+                self.query_menu()
             elif prompt == "X" or prompt == "x":
                 self.execute()
 
@@ -70,23 +70,23 @@ class Menu():
             elif api_prompt == "C" or api_prompt == "c":
                 self.downloader.state.set_apikey(None)
 
-        def query_menu(self):
-            query_run = True
-            while query_run:
-                self.info()
-                print("QUERY LIST MENU")
-                print("(I)mport Query List")
-                print("(C)lear Imported Query List")
-                print("(B)ack")
-                print("")
+    def query_menu(self):
+        query_run = True
+        while query_run:
+            self.info()
+            print("QUERY LIST MENU")
+            print("(I)mport Query List")
+            print("(C)lear Imported Query List")
+            print("(B)ack")
+            print("")
 
-                query_prompt = input("?: ")
-                if query_prompt == "B" or prompt == "b":
-                    query_run = False
-                elif query_prompt == "I" or prompt == "i":
-                    self.downloader.query.importq()
-                elif query_prompt == "C" or prompt == "c":
-                    self.test()
+            query_prompt = input("?: ")
+            if query_prompt == "B" or query_prompt == "b":
+                query_run = False
+            elif query_prompt == "I" or query_prompt == "i":
+                self.downloader.query.importq()
+            elif query_prompt == "C" or query_prompt == "c":
+                self.test()
 
 
     def test(self):
