@@ -16,8 +16,8 @@ class Menu():
         print("UN Comtrade Data Query")
         print("Current API Key: {}" .format(apikey))
         print("Calls Today: {}" .format(count))
-        print("Successful Test Query: {} ({})" .format(test, lasttest))
-        print("Query List Loaded: {} ({})"  .format(qlist, lastq))
+        # print("Successful Test Query: {} ({})" .format(test, lasttest))
+        # print("Query List Loaded: {} ({})"  .format(qlist, lastq))
         print("")
     
 
@@ -28,7 +28,7 @@ class Menu():
             print("(A)PI Key")
             print("(R)ead query list")
             print("(T)est Query")
-            print("E(X)ecute query list")
+            print("E(X)ecute query")
             print("(Q)uit")
             print("")
             prompt = input("?: ")
@@ -90,24 +90,48 @@ class Menu():
 
 
     def test(self):
+            test_run = 1
             while test_run:
                 self.info()
                 print("TEST QUERY MENU")
-                print("(S)end test query")
+                print("(S)end test query*")
+                print("(C)lear API count")
                 print("(B)ack")
                 print("")
                 test_prompt = input("?: ")
-                if test_prompt == "B" or prompt == "b":
+                if test_prompt == "B" or test_prompt == "b":
                     test_run = False
-                elif test_prompt == "S" or prompt == "s":
-                    run = False
+                elif test_prompt == "S" or test_prompt == "s":
+                    test_run = False
+                elif test_prompt == "C" or test_prompt == "c":
+                    self.downloader.state.reset_count()
+                    
 
 
 
 
 
     def execute(self):
-        self.info()
-        pass
+        ex_run = 1
+        while ex_run == 1:
+            self.info()
+            print("EXECUTE QUERY MENU")
+            print("(I)nitialize feather)")
+            print("Execute (N)umber of queries*")
+            print("Execute (A)ll queries")
+            print("(B)ack")
+            print("")
+            prompt = input("?: ")
+            if prompt == "B" or prompt == "b":
+                run = False
+            elif prompt == "I" or prompt == "i":
+                self.downloader.state.init_feather()    
+            elif prompt == "N" or prompt == "n":
+                self.test()
+            elif prompt == "A" or prompt == "a":
+                self.downloader.API_caller.loop()
+
+   
+        
             
             

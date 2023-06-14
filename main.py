@@ -12,17 +12,12 @@
 # 5.Each query result is added to the main results dataframe, which is stored as a file. Each individual result is written to its own csv file (named by timestamp) for redundancy
 
 from downloader import Downloader
-import datetime
-# def main():
-downloader = Downloader()
-#   downloader.run()
+
+def main():
+  downloader = Downloader()
+  downloader.run()
+
+if __name__ == "__main__":
+  main()
 
 
-# if __name__ == "__main__":
-#   main()
-
-time = datetime.datetime.now
-downloader.state.set_last_call()
-
-for i in range(20):
-  downloader.API_caller.increment_count()

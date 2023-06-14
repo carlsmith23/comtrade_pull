@@ -1,11 +1,15 @@
 import json
 import datetime
+import pandas as pd
+import pyarrow.feather as feather
+import os.path
 
 class State:
     def __init__(self):
         # ### Filenames ###
         self.filename = "state.json"
         self.qlfilename = "query_list"
+        self.df_name = "./data/results"
 
         self.read()
 
@@ -52,6 +56,26 @@ class State:
             self.query_list_status = state_dict["query_list"]
             return state_dict
 
+
+    def init_feather(self):
+        init = pd.read_csv("init.csv")
+        with open(self.df_name, 'wb') as f:
+            feather.write_feather(init, f)
+            f.close()
+
+    def add_to_feather(self, results_df):
+        with open(self.df_name, 'rb') as file:
+                print("is file")
+                df = feather.read_feather(file)
+                file.close()
+                df = pd.concat([results_df, df], axis=0)
+
+        with open(self.df_name, 'wb') as f:
+            feather.write_feather(df, f)
+            f.close() 
+
+    def write_data(self):
+        self.df.to_csv('./data/results.csv')
 
     def set_apikey(self, key):
         self.read()
@@ -129,11 +153,20 @@ class State:
         self.api_count = count
         self.write()
 
+    def reset_count(self):
+        self.read()
+        self.api_count = 0
+        self.write()
+
     def get_count(self):
         self.read()
         return self.api_count
 
-        
+
+       
+
+
+
     # def api_count_inc(self):
     #     self.read()
     #     if self.last_call was yesterday or before:
