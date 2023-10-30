@@ -44,6 +44,8 @@ class Query:
 
             query_df = query_df.fillna(np.nan).replace([np.nan], [None])
 
+            query_df.astype('str').dtypes
+
             query = query_df.to_dict(orient='index')
             query = query[next_row]
             return query
