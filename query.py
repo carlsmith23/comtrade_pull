@@ -1,16 +1,40 @@
-from comtradecut import Download
+from download import Download
 
-query = {
-    "api_key": "fb6483764ea64e49a2d1f9364c33ea82",
-    "type_code": "C",
-    "freq_code": "A",
-    "flow_direction": "M",
-    "cl_code": "HS",
-    "starting_year": 2000,
-    "ending_year": 2021,
-    "reporter_country": "156",
-    "partner_country": None,
-    "second_partner_country": None,
-}
-dl = Download(query)
-dl.get()
+
+class Query:
+    def __init__(self):
+        pass
+
+    def single(self, config, years, countries, imp_exp, codes):
+        query = {
+            "type_code": "C",
+            "freq_code": "A",
+            "flow_direction": imp_exp[0],
+            "cl_code": "HS",
+            "code": codes[0],
+            "year": years[0],
+            "reporter_country": countries[0],
+            "partner_country": None,
+            "second_partner_country": None,
+        }
+        dl = Download(query)
+        dl.get()
+
+    def series(self, config, years, countries, imp_exp, codes):
+        for country in countries:
+            for year in years:
+                for code in codes:
+                    for i in imp_exp:
+                        query = {
+                            "type_code": "C",
+                            "freq_code": "A",
+                            "flow_direction": i,
+                            "cl_code": "HS",
+                            "code": code,
+                            "year": year,
+                            "reporter_country": country,
+                            "partner_country": None,
+                            "second_partner_country": None,
+                        }
+                        dl = Download(config, query)
+                        dl.get()

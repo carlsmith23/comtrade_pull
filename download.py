@@ -23,41 +23,40 @@ import time as tm
 
 
 class Download:
-    def __init__(self, qy):
-        self.qy = qy
+    def __init__(self, config, query):
+        self.query = query
+        self.config = config
 
     def get(self):
-        self.year = self.qy["starting_year"]
-        while self.year < self.qy["ending_year"]:
-            time = datetime.datetime.now()
-            code = 1
-            while code < 10:
-                code_str = str(code)
+        results_df = comtradeapicall.getFinalData(
+            self.config.get_api_key(),
+            typeCode=self.query["type_code"],
+            freqCode=self.query["freq_code"],
+            clCode=self.query["cl_code"],
+            period="{}".format(self.query["year"]),
+            reporterCode=self.query["reporter_country"],
+            cmdCode="{}".format(self.query["code"]),
+            flowCode=self.query["flow_direction"],
+            partnerCode=self.query["partner_country"],
+            partner2Code=self.query["second_partner_country"],
+            customsCode=None,
+            motCode=None,
+            format_output="JSON",
+            aggregateBy=None,
+            breakdownMode="classic",
+            countOnly=None,
+            includeDesc=True,
+        )
 
-                results_df = comtradeapicall.getFinalData(
-                    self.qy["api_key"],
-                    typeCode=self.qy["type_code"],
-                    freqCode=self.qy["freq_code"],
-                    clCode=self.qy["cl_code"],
-                    period="{}".format(self.year),
-                    reporterCode=self.qy["reporter_country"],
-                    cmdCode="0{}".format(code),
-                    flowCode=self.qy["flow_direction"],
-                    partnerCode=self.qy["partner_country"],
-                    partner2Code=self.qy["second_partner_country"],
-                    customsCode=None,
-                    motCode=None,
-                    format_output="JSON",
-                    aggregateBy=None,
-                    breakdownMode="classic",
-                    countOnly=None,
-                    includeDesc=True,
-                )
+        if self.query["flow_direction"] == "M":
+            direction = "Imports"
 
-                results_df.to_csv(
-                    "./data/{} Imports TEST {}.csv".format(self.year, code)
-                )
-                tm.sleep(10)
+        if self.query["flow_direction"] == "X":
+            direction = "Exports"
 
-                code += 1
-            year += 1
+        results_df.to_csv(
+            "./data/{} {} HS4 {}.csv".format(
+                self.query["year"], direction, self.query["code"]
+            )
+        )
+        tm.sleep(10)
