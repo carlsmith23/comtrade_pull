@@ -19,7 +19,7 @@ class Interface(App[None]):
     def compose(self) -> ComposeResult:
         yield Header()
         with Container(
-            with RadioSet(id="type"):
+            yield RadioSet(id="type"):
                 yield Label("Type:")
                 yield RadioButton("Merchandise")
                 yield RadioButton("Services")
