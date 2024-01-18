@@ -55,8 +55,8 @@ class Download:
             direction = "Exports"
 
         results_df.to_csv(
-            "./data/{} {} HS4 {}.csv".format(
-                self.query["year"], direction, self.query["code"]
+            "./data/{} {} HS{} {}.csv".format(
+                self.query["year"], self.query["reporter_country"], self.query["code"], direction
             )
         )
-        tm.sleep(10)
+        tm.sleep(3)
